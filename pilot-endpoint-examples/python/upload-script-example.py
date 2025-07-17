@@ -26,8 +26,8 @@ SCRIPT_PATH = r"path-to-pdf.pdf"
 API_KEY = "your-api-key-here"
 
 query_params = {
-    "externalUserId": "exmaple-user-id", # The id you want to reference a users studio session by
-    "isReviewEnabled": "true", # This determines if you get to review the selected voices and scene location effects for a studio session
+    "externalUserId": "exmaple-user-id", # ID to reference a user's studio session
+    "isReviewEnabled": "true", # Enable review mode for voices and location effects
 }
 
 upload_script(SCRIPT_PATH, API_KEY, query_params)
