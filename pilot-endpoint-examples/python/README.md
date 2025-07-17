@@ -17,14 +17,31 @@ This folder contains example Python scripts to interact with the AudioPilot API.
    cd pilot-examples/pilot-endpoint-examples/python
 
 2. **Create and activate a virtual environment**:
+```bash
    python -m venv venv
+```
    # Activate on Windows
+```bash
    venv\Scripts\activate
+```
    # Activate on macOS/Linux
+```bash
    source venv/bin/activate
+```
 
 3. **Install dependencies**:
+```bash
    pip install -r requirements.txt
+```
+
+
+### 4. **Running an Example**
+
+Run scripts using Python's `-m` flag from the **python** folder:
+
+```bash
+python -m studio_sessions.get_studio_session_by_record_id
+```
 
 ---
 
