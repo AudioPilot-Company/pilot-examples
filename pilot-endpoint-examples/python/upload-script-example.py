@@ -1,22 +1,20 @@
-import requests
+import os, requests
 
 
 # Example on how to upload a script to our platform with an API key
-def upload_script(file_path: str, api_key: str, external_user_id: str):
-    # Upload file using API key in headers
+def upload_script(file_path: str, api_key: str, query_params: dict):
     try:
         with open(file_path, "rb") as file:
-            files = {"file": (file_path, file, "application/pdf")}
+            files = {"file": (os.path.basename(file_path), file, "application/pdf")}
             response = requests.post(
-                f"https://api.audiopilot.studio/studio-sessions/script/upload-trial?externalUserId={external_user_id}",
+                "https://api.audiopilot.studio/studio-sessions/script/upload",
                 headers={"X-API-KEY": api_key},
-                files=files
+                files=files,
+                params=query_params
             )
 
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception(f"Error: {response.status_code} - {response.text}")
+        response.raise_for_status()
+        return response.json()
 
     except Exception as error:
         print("Failed to upload script:", error)
@@ -24,8 +22,12 @@ def upload_script(file_path: str, api_key: str, external_user_id: str):
 
 
 # Example usage:
-SCRIPT_PATH = r"C:\Users\Noah White\Downloads\girls-pilot-2-pages.pdf"
-API_KEY = "ap_NNqTgU9CtLasE4RE50PRsoxxHIpyQ0jB06J6NUcigWE95YVl0BCZafisNAMNI"
-EXTERNAL_USER_ID = "noah"
+SCRIPT_PATH = r"path-to-pdf.pdf"
+API_KEY = "your-api-key-here"
 
-upload_script(SCRIPT_PATH, API_KEY, EXTERNAL_USER_ID)
+query_params = {
+    "externalUserId": "exmaple-user-id", # The id you want to reference a users studio session by
+    "isReviewEnabled": "true", # This determines if you get to review the selected voices and scene location effects for a studio session
+}
+
+upload_script(SCRIPT_PATH, API_KEY, query_params)
