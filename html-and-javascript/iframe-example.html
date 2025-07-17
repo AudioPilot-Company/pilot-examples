@@ -1,0 +1,42 @@
+<!-- 
+recordId: 
+    The record you are trying to access.
+
+userToken:
+    The token representing the user. If you haven't provided an authorization endpoint, 
+    this will be the externalUserId used during script upload.
+
+apiKey:
+    The API key from your company settings on Pilot Ops.
+    Use an API key with "read" permissions in production for better security.
+-->
+
+<!-- ✅ RECOMMENDED: Use postMessage to send credentials dynamically -->
+<iframe id="audiopilot-iframe" src="https://studio.myaudiopilot.com" width="60%" height="400" style="border:1px solid #ccc;"
+    title="AudioPilot Studio">
+</iframe>
+
+<script>
+    const iframe = document.getElementById('audiopilot-iframe');
+
+    // Listen for studio-ready event from iframe
+    window.addEventListener('message', (event) => {
+        const trustedOrigin = 'https://studio.myaudiopilot.com';
+        if (event.origin !== trustedOrigin) return; // Security check: ignore other origins
+
+        if (event.data?.type === 'studio-ready') {
+            // Send credentials securely via postMessage
+            iframe.contentWindow.postMessage({
+                type: 'auth',
+                userToken: 'YOUR_USER_TOKEN',
+                recordId: 'YOUR_RECORD_ID',
+                apiKey: 'YOUR_API_KEY' // Use read-only key in production
+            }, trustedOrigin);
+        }
+    });
+</script>
+
+<!-- ⚠ NOT RECOMMENDED: Query params expose credentials in URL (less secure) -->
+<iframe src="https://studio.myaudiopilot.com?recordId=YOUR_RECORD_ID&userToken=YOUR_USER_TOKEN&apiKey=YOUR_API_KEY"
+    width="60%" height="400" style="border:1px solid #ccc;" title="AudioPilot Studio">
+</iframe>
