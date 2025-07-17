@@ -13,7 +13,7 @@ This folder contains example Python scripts to interact with the AudioPilot API.
 ## 🚀 Quick Setup
 
 1. **Clone this repository** (if not already cloned):
-   git clone https://github.com/AudioPilot-Company/AudioPilot-examples.git
+   git clone https://github.com/AudioPilot-Company/pilot-examples.git
    cd pilot-examples/pilot-endpoint-examples/python
 
 2. **Create and activate a virtual environment**:
