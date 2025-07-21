@@ -41,7 +41,8 @@ def get_studio_session_by_record_id(record_id: str, api_key: str, user_token: st
 
 
 # Example usage:
-API_KEY = "your-api-key"
+API_KEY = "your-api-key" # Use read key in production
 USER_TOKEN = "example-user-token"
+RECORD_ID = "12345"
 
-get_studio_session_by_record_id(record_id="12345",api_key=API_KEY, user_token=USER_TOKEN)
+get_studio_session_by_record_id(record_id=RECORD_ID,api_key=API_KEY, user_token=USER_TOKEN)
