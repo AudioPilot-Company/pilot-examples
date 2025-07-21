@@ -53,7 +53,7 @@ SCRIPT_PATH = "path-to-pdf.pdf"
 API_KEY = "your-api-key-here" # Use upload only key in production
 
 query_params: UploadQueryParams = {
-    "externalUserId": "exmaple-user-id", # ID to reference a user's studio session
+    "externalUserId": "example-user-id", # ID to reference a user's studio session
     "isReviewEnabled": "true", # Enable review mode for voices and location effects
 }
 
