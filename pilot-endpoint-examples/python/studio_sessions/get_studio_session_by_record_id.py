@@ -10,7 +10,7 @@ load_dotenv(dotenv_path=".env.example")
 API_URL:str = os.getenv("API_URL")
 if not API_URL:
     raise ValueError("API_URL not set in environment variables")
-API_URL += '/{recordId}'
+API_URL += '/studio-sessions/{recordId}'
 
 def get_studio_session_by_record_id(record_id: str, api_key: str, user_token: str) -> StudioSession | None:
     """

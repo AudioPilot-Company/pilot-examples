@@ -9,7 +9,7 @@ load_dotenv(".env.example")
 API_URL:str = os.getenv("API_URL")
 if not API_URL:
     raise ValueError("API_URL not set in environment variables")
-API_URL += '/{recordId}'
+API_URL += '/studio-sessions/{recordId}'
 
 def delete_studio_session_by_record_id(record_id: str, api_key: str, user_token: str) -> bool:
     """
@@ -41,7 +41,7 @@ def delete_studio_session_by_record_id(record_id: str, api_key: str, user_token:
 
 
 # Example usage:
-API_KEY = "your-api-key"
+API_KEY = "your-api-key" # Use delete key in production
 USER_TOKEN = "example-user-token"
 
 delete_studio_session_by_record_id(record_id="12345", api_key=API_KEY, user_token=USER_TOKEN)
