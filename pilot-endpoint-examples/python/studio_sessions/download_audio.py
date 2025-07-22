@@ -23,7 +23,7 @@ def get_default_download_path(filename: str) -> str:
 def get_filename_from_headers(headers) -> str:
     content_disp = headers.get("Content-Disposition", "")
     match = re.search(r'filename="?([^"]+)"?', content_disp)
-    return match.group(1) if match else "downloaded_audio.mp3"
+    return match.group(1) if match else "downloaded_audio.wav"
 
 def download_audio(record_id: str, user_token: str, api_key: str, file_path: str = None) -> bool:
     """
