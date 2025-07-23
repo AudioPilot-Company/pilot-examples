@@ -11,7 +11,6 @@ apiKey:
     Use an API key with "read" permissions in production for better security.
 -->
 
-<!-- ✅ RECOMMENDED: Use postMessage to send credentials dynamically -->
 <iframe id="audiopilot-iframe" src="https://studio.myaudiopilot.com" width="60%" height="400" style="border:1px solid #ccc;"
     title="AudioPilot Studio">
 </iframe>
@@ -35,8 +34,3 @@ apiKey:
         }
     });
 </script>
-
-<!-- ⚠ NOT RECOMMENDED: Query params expose credentials in URL (less secure) -->
-<iframe src="https://studio.myaudiopilot.com?recordId=YOUR_RECORD_ID&userToken=YOUR_USER_TOKEN&apiKey=YOUR_API_KEY"
-    width="60%" height="400" style="border:1px solid #ccc;" title="AudioPilot Studio">
-</iframe>
