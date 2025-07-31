@@ -41,8 +41,8 @@ def delete_studio_session_by_record_id(record_id: str, api_key: str, user_token:
 
 
 # Example usage:
-API_KEY = "your-api-key" # Use delete key in production
+API_KEY = "ap_abc123" # Use delete key in production
 USER_TOKEN = "example-user-token"
-RECORD_ID = "12345"
+RECORD_ID = "rec123"
 
 delete_studio_session_by_record_id(record_id=RECORD_ID, api_key=API_KEY, user_token=USER_TOKEN)
