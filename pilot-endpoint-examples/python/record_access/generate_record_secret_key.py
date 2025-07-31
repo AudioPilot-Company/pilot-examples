@@ -46,7 +46,7 @@ def generate_record_secret_key(api_key: str, record_id: str) -> RecordAccessToke
     return None
 
 # Example usage:
-API_KEY = "ap_JBh4EfVAxgz7cmvhx1Q8YWOSfLVZKOIrukO1hJaoeJtQdeiF5JD9WechgzpgQ" # Use embed only key in production
-RECORD_ID = "recYC70jXOEuZ9RRLwAg"
+API_KEY = "ap_abc123" # Use embed only key in production
+RECORD_ID = "rec123"
 
 generate_record_secret_key(API_KEY, RECORD_ID)
