@@ -1,41 +1,25 @@
 from .base_entity import BaseEntity
-from datetime import datetime
-from pydantic import BaseModel
 from typing import List, Optional
 from uuid import UUID
 
-class StudioSession(BaseEntity):
+
+class StudioSessionResponse (BaseEntity):
     recordId: str
     status: str
     scriptId: UUID
     scriptName: str
-    coverageLogline: str
+    coverageLogline: Optional[str] = None
     coverageGenre: List[str]
-    coverageMarketability: str
+    coverageMarketability: Optional[str] = None
     coverageDemographic: List[str]
-    coverageDemographicExplained: Optional[str]
-    isParsingMessageSent: bool
-    isAudioGenerationMessageSent: bool
+    coverageDemographicExplained: Optional[str] = None
     companyId: int
     isTrial: bool
-    scenesCharacterCount: int
-    scenesCount: int
-    uniqueVoicesCharacterCount: int
-    uniqueVoicesCount: int
+    scenesCharacterCount: Optional[int] = None
+    scenesCount: Optional[int] = None
+    uniqueVoicesCount: Optional[int] = None
     creditCost: int
     pages: int
-    dataSource: str
-    audiopilotPackageId: Optional[int]
-    deleted: bool = False
-    isFromCompanyUser: bool
-    isReviewingEnabled: bool = False
-    countRegeneration: int = 0
-
-
-class StudioSessionResponse (BaseModel):
-    recordId: str
-    scriptId: str
-    createdAt: datetime
-    updatedAt: datetime
-    createdBy: str
-    updatedBy: str
+    deleted: bool
+    isReviewingEnabled: Optional[bool] = False
+    countRegeneration: int
