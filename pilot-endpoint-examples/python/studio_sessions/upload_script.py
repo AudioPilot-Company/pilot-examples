@@ -53,10 +53,9 @@ def upload_script(file_path: str, api_key: str, query_params: UploadQueryParams)
 
 # Example usage:
 SCRIPT_PATH = "path-to-pdf.pdf"
-API_KEY = "your-api-key-here" # Use upload only key in production
+API_KEY = "ap_abc123" # Use upload only key in production
 
 query_params: UploadQueryParams = {
-    "externalUserId": "example-user-id", # ID to reference a user's studio session
     "isReviewEnabled": "true", # Enable review mode for voices and location effects
 }
 

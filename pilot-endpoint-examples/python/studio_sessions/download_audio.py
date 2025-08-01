@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from pathlib import Path
-import re
 from requests import Response
+
 import os, re, requests
 
 load_dotenv(dotenv_path=".env.example")
@@ -59,6 +59,6 @@ def download_audio(record_id: str, user_token: str, api_key: str, file_path: str
 # Example usage
 RECORD_ID = "12345"
 USER_TOKEN = "user-token"
-API_KEY = "your-api-key-here"
+API_KEY = "ap_abc123"
 
 download_audio(RECORD_ID, USER_TOKEN, API_KEY)
