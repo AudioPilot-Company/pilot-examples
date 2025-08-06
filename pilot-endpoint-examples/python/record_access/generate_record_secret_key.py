@@ -33,9 +33,10 @@ def generate_record_secret_key(api_key: str, record_id: str) -> RecordAccessToke
 
         response.raise_for_status()
         data: dict = response.json()
-        token_response = RecordAccessTokenResponse(**data)
+        token_response:RecordAccessTokenResponse = RecordAccessTokenResponse(**data)
 
         print(f"Token generated for record: {token_response.recordId}")
+        print(f"Token: {token_response.accessToken}")
         return token_response
 
     except requests.exceptions.HTTPError as http_err:
@@ -49,4 +50,4 @@ def generate_record_secret_key(api_key: str, record_id: str) -> RecordAccessToke
 API_KEY = "ap_abc123" # Use embed only key in production
 RECORD_ID = "rec123"
 
-generate_record_secret_key(API_KEY, RECORD_ID)
+generate_record_secret_key(api_key=API_KEY, record_id=RECORD_ID)

@@ -44,7 +44,7 @@ def deactivate_record_secret_key(api_key: str, record_id: str) -> bool:
 
 
 # Example usage:
-API_KEY = "ap_abc123" # Use embed only key in production
+API_KEY = "ap_abc123"  # You can pass the secret token you generated for this specific record or an embed API Key in production
 RECORD_ID = "rec123"
 
-deactivate_record_secret_key(API_KEY, RECORD_ID)
+deactivate_record_secret_key(api_key=API_KEY, record_id=RECORD_ID)
