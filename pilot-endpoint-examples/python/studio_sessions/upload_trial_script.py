@@ -14,7 +14,7 @@ if not API_URL:
     raise ValueError("API_URL not set in environment variables")
 API_URL += '/studio-sessions/script/upload-trial'
 # Example on how to upload a trial script to our platform with an API key
-def upload_trial_script(file_path: str, api_key: str, query_params: UploadQueryParams) -> StudioSessionResponse | None:
+def upload_trial_script(api_key: str, file_path: str, query_params: UploadQueryParams) -> StudioSessionResponse | None:
     """
     Upload a trial script to the AudioPilot platform.
 
@@ -49,11 +49,11 @@ def upload_trial_script(file_path: str, api_key: str, query_params: UploadQueryP
 
 
 # Example usage:
-SCRIPT_PATH = "path-to-pdf.pdf"
 API_KEY = "ap_abc123" # Use upload only key in production
+SCRIPT_PATH = "path-to-pdf.pdf"
 
-query_params: UploadQueryParams = {
+QUERY_PARAMS: UploadQueryParams = {
     "isReviewEnabled": "true", # Enable review mode for voices and location effects
 }
 
-upload_trial_script(SCRIPT_PATH, API_KEY, query_params)
+upload_trial_script(api_key=API_KEY, file_path=SCRIPT_PATH, query_params=QUERY_PARAMS)

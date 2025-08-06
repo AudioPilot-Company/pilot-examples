@@ -12,7 +12,7 @@ if not API_URL:
     raise ValueError("API_URL not set in environment variables")
 API_URL += '/studio-sessions/{recordId}'
 
-def get_studio_session_by_record_id(record_id: str, api_key: str) -> StudioSessionResponse | None:
+def get_studio_session_by_record_id(api_key: str, record_id: str) -> StudioSessionResponse | None:
     """
     Retrieve a studio session by its record ID.
 
@@ -42,7 +42,7 @@ def get_studio_session_by_record_id(record_id: str, api_key: str) -> StudioSessi
 
 
 # Example usage:
-API_KEY = "ap_abc123" # Use read key in production
+API_KEY = "ap_abc123" # Use read API key in production
 RECORD_ID = "recabc123"
 
-get_studio_session_by_record_id(record_id=RECORD_ID,api_key=API_KEY)
+get_studio_session_by_record_id(api_key=API_KEY, record_id=RECORD_ID)
