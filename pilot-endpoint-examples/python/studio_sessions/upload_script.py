@@ -15,7 +15,7 @@ if not API_URL:
 API_URL += '/studio-sessions/script/upload'
 
 # Example on how to upload a script to our platform with an API key
-def upload_script(file_path: str, api_key: str, query_params: UploadQueryParams) -> StudioSessionResponse | None:
+def upload_script(api_key: str, file_path: str, query_params: UploadQueryParams) -> StudioSessionResponse | None:
     """
     Upload a script to the AudioPilot platform.
 
@@ -52,12 +52,11 @@ def upload_script(file_path: str, api_key: str, query_params: UploadQueryParams)
 
 
 # Example usage:
+API_KEY = "ap_abc123" # Use upload only key in production
 SCRIPT_PATH = "path-to-pdf.pdf"
-API_KEY = "your-api-key-here" # Use upload only key in production
 
-query_params: UploadQueryParams = {
-    "externalUserId": "example-user-id", # ID to reference a user's studio session
+QUERY_PARAMS: UploadQueryParams = {
     "isReviewEnabled": "true", # Enable review mode for voices and location effects
 }
 
-upload_script(SCRIPT_PATH, API_KEY, query_params)
+upload_script(file_path=SCRIPT_PATH, api_key=API_KEY, query_params=QUERY_PARAMS)

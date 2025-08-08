@@ -1,16 +1,13 @@
 <!-- 
 recordId: 
-    The record you are trying to access.
-
-userToken:
-    The token representing the user. If you haven't provided an authorization endpoint, 
-    this will be the externalUserId used during script upload.
+    The Studio Session record you are trying to access.
 
 apiKey:
-    The API key from your company settings on Pilot Ops.
-    Use an API key with "embed" permissions in production for better security.
+    The API key from your company settings in Pilot Ops.
+    For production, use an API key with "embed" permissions to generate a Record Access Token for improved security.
+    You may use either an embed-enabled API key or a record access token here.
 -->
-
+    
 <iframe id="audiopilot-iframe" src="https://studio.myaudiopilot.com" width="60%" height="400" style="border:1px solid #ccc;"
     title="AudioPilot Studio">
 </iframe>
@@ -27,9 +24,8 @@ apiKey:
             // Send credentials securely via postMessage
             iframe.contentWindow.postMessage({
                 type: 'auth',
-                userToken: 'YOUR_USER_TOKEN',
                 recordId: 'YOUR_RECORD_ID',
-                apiKey: 'YOUR_API_KEY' // Use embed key in production
+                apiKey: 'YOUR_API_KEY' // Use embed key to generate record access tokens in production
             }, trustedOrigin);
         }
     });
