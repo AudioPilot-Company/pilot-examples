@@ -7,26 +7,61 @@ apiKey:
     For production, use an API key with "embed" permissions to generate a Record Access Token for improved security.
     You may use either an embed-enabled API key or a record access token here.
 -->
-    
-<iframe id="audiopilot-iframe" src="https://studio.myaudiopilot.com" width="60%" height="400" style="border:1px solid #ccc;"
-    title="AudioPilot Studio">
-</iframe>
 
-<script>
-    const iframe = document.getElementById('audiopilot-iframe');
+<!DOCTYPE html>
+<html lang="en">
 
-    // Listen for studio-ready event from iframe
-    window.addEventListener('message', (event) => {
-        const trustedOrigin = 'https://studio.myaudiopilot.com';
-        if (event.origin !== trustedOrigin) return; // Security check: ignore other origins
+<head>
+    <meta charset="utf-8">
+    <title>AudioPilot Embed Example</title>
 
-        if (event.data?.type === 'studio-ready') {
-            // Send credentials securely via postMessage
-            iframe.contentWindow.postMessage({
-                type: 'auth',
-                recordId: 'YOUR_RECORD_ID',
-                apiKey: 'YOUR_API_KEY' // Use embed key to generate record access tokens in production
-            }, trustedOrigin);
+    <!-- Crucial for responsive scaling on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <style>
+        /* Ensure html and body fill the viewport so % heights work */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    });
-</script>
+
+        /* The iframe fills its parent container */
+        #audiopilot-iframe {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ccc;
+            /* optional: for visual clarity */
+            display: block;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- The parent container height can be controlled by the client -->
+    <iframe id="audiopilot-iframe" src="https://studio.myaudiopilot.com" title="AudioPilot Studio"></iframe>
+
+    <script>
+        const iframe = document.getElementById('audiopilot-iframe');
+
+        // Listen for the "studio-ready" event from the iframe
+        window.addEventListener('message', (event) => {
+            const trustedOrigin = 'https://studio.myaudiopilot.com';
+            if (event.origin !== trustedOrigin) return; // Security: ignore other origins
+
+            if (event.data?.type === 'studio-ready') {
+                // Send credentials securely via postMessage
+                iframe.contentWindow.postMessage({
+                    type: 'auth',
+                    recordId: 'YOUR_RECORD_ID',  // Replace with your recordId
+                    apiKey: 'YOUR_API_KEY'       // Replace with your embed key or usertoken
+                }, trustedOrigin);
+            }
+        });
+    </script>
+</body>
+
+</html>
