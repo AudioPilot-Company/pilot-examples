@@ -1,30 +1,31 @@
 from dotenv import load_dotenv
+from enums.product_type import ProductType
 from io import BufferedReader
 from models.studio_session import StudioSessionResponse
-from type_dicts.upload_query_params import UploadQueryParams
 from requests import Response
-
+from type_dicts.upload_query_params import UploadQueryParams
 import os, requests
 
-load_dotenv(".env.example")
+load_dotenv(dotenv_path=".env.example")
 
 
-API_URL:str = os.getenv("API_URL")
+API_URL = os.getenv("API_URL")
 if not API_URL:
     raise ValueError("API_URL not set in environment variables")
-API_URL += '/studio-sessions/script/upload-trial'
-# Example on how to upload a trial script to our platform with an API key
-def upload_trial_script(api_key: str, file_path: str, query_params: UploadQueryParams) -> StudioSessionResponse | None:
+API_URL += '/studio-sessions/script/upload'
+
+# Example on how to create a studio session on our platform with an API key
+def upload_studio_session(api_key: str, file_path: str, query_params: UploadQueryParams) -> StudioSessionResponse | None:
     """
-    Upload a trial script to the AudioPilot platform.
+    Upload a screenplay or treatment to the AudioPilot platform.
 
     Args:
-        file_path (str): Path to the trial script PDF file.
+        file_path (str): Path to the script PDF file.
         api_key (str): API key with upload permissions.
         query_params (UploadQueryParams): Query parameters for the upload request.
 
     Returns:
-        StudioSessionResponse | None: The uploaded trial session details if successful, otherwise None.
+        StudioSessionResponse | None: The uploaded session details if successful, otherwise None.
     """
     
     try:
@@ -40,9 +41,9 @@ def upload_trial_script(api_key: str, file_path: str, query_params: UploadQueryP
         response.raise_for_status()
         data: dict[str, str | int | list | None] = response.json()
         session_response: StudioSessionResponse = StudioSessionResponse(**data)
-        print(f"Trial script uploaded successfully. Record ID: {session_response.recordId}")
+        print(f"Script uploaded successfully. Record ID: {session_response.recordId}")
         return session_response
-    
+
     except Exception as error:
         print("Failed to upload script:", error)
         return None
@@ -54,6 +55,7 @@ SCRIPT_PATH = "path-to-pdf.pdf"
 
 QUERY_PARAMS: UploadQueryParams = {
     "isReviewEnabled": "true", # Enable review mode for voices and location effects
+    "productType" : ProductType.AUDIO_PILOT
 }
 
-upload_trial_script(api_key=API_KEY, file_path=SCRIPT_PATH, query_params=QUERY_PARAMS)
+upload_studio_session(file_path=SCRIPT_PATH, api_key=API_KEY, query_params=QUERY_PARAMS)
