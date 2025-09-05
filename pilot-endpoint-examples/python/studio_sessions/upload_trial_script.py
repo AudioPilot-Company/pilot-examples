@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from enums.product_type import ProductType
 from io import BufferedReader
 from models.studio_session import StudioSessionResponse
 from type_dicts.upload_query_params import UploadQueryParams
@@ -54,6 +55,7 @@ SCRIPT_PATH = "path-to-pdf.pdf"
 
 QUERY_PARAMS: UploadQueryParams = {
     "isReviewEnabled": "true", # Enable review mode for voices and location effects
+    "productType" : ProductType.AUDIO_PILOT
 }
 
 upload_trial_script(api_key=API_KEY, file_path=SCRIPT_PATH, query_params=QUERY_PARAMS)
