@@ -1,0 +1,85 @@
+<!-- 
+recordId: 
+    The Studio Session record you are trying to access.
+
+apiKey:
+    The API key from your company settings in Pilot Ops.
+    For production, use an API key with "embed" permissions to generate a Record Access Token for improved security.
+    You may use either an embed-enabled API key or a record access token here.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>AudioPilot Embed Example - Embed</title>
+
+  <style>
+    /*
+      AudioPilot Embed
+
+      This HTML file is meant for embedding the AudioPilot Angular app
+      into a parent container/platform. The iframe fills the parent container
+      completely, sending its viewport dimensions to the Angular app via postMessage.
+
+      Notes:
+      - This is NOT for Chrome/DevTools device preview testing.
+      - For testing previews (e.g., iPhone SE), see the separate test HTML file.
+      - The iframe automatically sends its real dimensions to Angular on load
+        and on window resize, so Angular can adjust the layout accordingly.
+      - Credentials are securely passed only when the Angular iframe signals
+        it is ready ("studio-ready" message).
+    */
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Iframe will fill entire parent container */
+    #audiopilot-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <iframe id="audiopilot-iframe" src="http://localhost:4200" title="AudioPilot Studio"></iframe>
+
+  <script>
+    const iframe = document.getElementById('audiopilot-iframe');
+
+    // Send the actual dimensions of the iframe to the Angular app
+    function sendIframeSize() {
+      const width = iframe.clientWidth;
+      const height = iframe.clientHeight;
+      iframe.contentWindow.postMessage({ type: 'resize', width, height }, '*');
+    }
+
+    // Send dimensions when iframe loads and when window resizes
+    iframe.addEventListener('load', sendIframeSize);
+    window.addEventListener('resize', sendIframeSize);
+
+    // Listen for "studio-ready" message from Angular iframe
+    window.addEventListener('message', (event) => {
+      const trustedOrigin = 'http://localhost:4200';
+      if (event.origin !== trustedOrigin) return;
+
+      if (event.data?.type === 'studio-ready') {
+        // Send secure credentials via postMessage
+        iframe.contentWindow.postMessage({
+          type: 'auth',
+          recordId: 'recabc123',
+          apiKey: 'ap_abc123'
+        }, trustedOrigin);
+      }
+    });
+  </script>
+</body>

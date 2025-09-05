@@ -1,16 +1,15 @@
 from dotenv import load_dotenv
 from pathlib import Path
 from requests import Response
-
 import os, re, requests
 
 load_dotenv(dotenv_path=".env.example")
 
-
 API_URL = os.getenv("API_URL")
 if not API_URL:
     raise ValueError("API_URL not set in environment variables")
-API_URL += '/studio-sessions/audio/{recordId}/download'
+# Updated presigned URL endpoint
+API_URL += '/studio-sessions/{recordId}/presigned-url'
 
 
 def get_default_download_path(filename: str) -> str:
@@ -30,6 +29,7 @@ def get_default_download_path(filename: str) -> str:
         return str(downloads / filename)
     return str(home / filename)
 
+
 def get_filename_from_headers(headers) -> str:
     """
     Extract the filename from the Content-Disposition header.
@@ -44,38 +44,43 @@ def get_filename_from_headers(headers) -> str:
     match = re.search(r'filename="?([^"]+)"?', content_disp)
     return match.group(1) if match else "downloaded_audio.wav"
 
-def download_audio(api_key: str, record_id: str, file_path: str = None) -> bool:
-    """
-    Download the audio file associated with a studio session.
 
-    This function fetches the audio file for a given studio session record from the AudioPilot platform
-    and saves it locally. If no file path is provided, it defaults to the user's Downloads folder.
+def download_audio(record_id: str, api_key: str, file_path: str = None) -> bool:
+    """
+    Download the audio file associated with a studio session using a presigned URL.
+
+    Steps:
+    1. Request the presigned URL for the given record ID.
+    2. Download the audio from the presigned URL.
 
     Args:
         record_id (str): The ID of the studio session record.
-        api_key (str): API key with read permissions.
+        api_key (str): API key with permission to request presigned URLs.
         file_path (str, optional): Destination path to save the file. 
                                    Defaults to the user's Downloads folder.
 
     Returns:
-        bool: True if the download succeeds and the file is saved successfully, False otherwise.
+        bool: True if the download succeeds, False otherwise.
     """
     try:
-        response: Response = requests.get(
+        # Step 1: Get presigned URL
+        resp: Response = requests.get(
             API_URL.format(recordId=record_id),
-            headers={"X-API-KEY": api_key},
-            stream=True
+            headers={"X-API-KEY": api_key}
         )
-        response.raise_for_status()
+        resp.raise_for_status()
+        presigned_url = resp.text.strip()  # presigned URL returned as plain string
 
-        # Determine filename
-        filename = get_filename_from_headers(response.headers)
+        # Step 2: Download audio from presigned URL
+        download_resp: Response = requests.get(presigned_url, stream=True)
+        download_resp.raise_for_status()
+
+        filename = get_filename_from_headers(download_resp.headers)
         if not file_path:
             file_path = get_default_download_path(filename)
 
-        # Save content
         with open(file_path, "wb") as f:
-            for chunk in response.iter_content(chunk_size=8192):
+            for chunk in download_resp.iter_content(chunk_size=8192):
                 if chunk:
                     f.write(chunk)
 
@@ -86,8 +91,8 @@ def download_audio(api_key: str, record_id: str, file_path: str = None) -> bool:
         print(f"Failed to download audio: {e}")
         return False
 
-# Example usage
-API_KEY = "ap_abc123" # Use download API key in production
+# Example usage:
+API_KEY = "ap_abc123"  # Use read API key in production
 RECORD_ID = "recabc123"
 
-download_audio(api_key=API_KEY, record_id=RECORD_ID)
+download_audio(record_id=RECORD_ID, api_key=API_KEY)

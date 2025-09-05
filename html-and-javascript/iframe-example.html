@@ -12,49 +12,108 @@ apiKey:
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>AudioPilot Embed Example</title>
+  <meta charset="utf-8">
+  <title>AudioPilot Embed Example - iPhone SE Test</title>
 
-    <style>
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    /*
+      AudioPilot Test Preview - iPhone SE
 
-        #audiopilot-iframe {
-            width: 100%;
-            height: 100%;
-            border: 1px solid #ccc;
-            display: block;
-            box-sizing: border-box;
-        }
-    </style>
+      This HTML file is specifically for testing the AudioPilot Angular app
+      in a Chrome/DevTools preview or any device simulator.
+
+      Notes:
+      - The iframe dimensions are manually set to iPhone SE (375x667).
+      - Chrome device preview and other simulated viewports do not automatically
+        adjust iframe size; manually setting width/height ensures the preview matches iPhone SE.
+      - This file is NOT meant for embedding into production platforms; for that, use the embed HTML.
+      - The iframe sends its design dimensions to Angular so that the layout inside
+        the iframe matches iPhone SE regardless of actual container scaling.
+      - Credentials are sent after Angular signals readiness ("studio-ready").
+    */
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+
+    #iframe-wrapper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #audiopilot-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 375px;   /* iPhone SE base width */
+      height: 667px;  /* iPhone SE base height */
+      border: none;
+      transform-origin: top left;
+    }
+  </style>
 </head>
 
 <body>
-    <iframe id="audiopilot-iframe" src="https://studio.myaudiopilot.com" title="AudioPilot Studio"></iframe>
+  <div id="iframe-wrapper">
+    <iframe id="audiopilot-iframe" src="http://localhost:4200" title="AudioPilot Studio"></iframe>
+  </div>
 
-    <script>
-        const iframe = document.getElementById('audiopilot-iframe');
+  <script>
+    const iframe = document.getElementById('audiopilot-iframe');
+    const wrapper = document.getElementById('iframe-wrapper');
 
-        // Listen for the "studio-ready" event from the iframe
-        window.addEventListener('message', (event) => {
-            const trustedOrigin = 'https://studio.myaudiopilot.com';
-            if (event.origin !== trustedOrigin) return; // Security: ignore other origins
+    function scaleIframe() {
+      const containerWidth = wrapper.clientWidth;
+      const containerHeight = wrapper.clientHeight;
 
-            if (event.data?.type === 'studio-ready') {
-                // Send credentials securely via postMessage
-                iframe.contentWindow.postMessage({
-                    type: 'auth',
-                    recordId: 'YOUR_RECORD_ID',  // Replace with your recordId
-                    apiKey: 'YOUR_API_KEY'       // Replace with your embed key or usertoken
-                }, trustedOrigin);
-            }
-        });
-    </script>
+      const designWidth = 375;  // iPhone SE width
+      const designHeight = 667; // iPhone SE height
+
+      // Calculate scale to fit preview while preserving aspect ratio
+      const scaleX = containerWidth / designWidth;
+      const scaleY = containerHeight / designHeight;
+      const scale = Math.min(scaleX, scaleY);
+
+      // Apply scaling
+      iframe.style.transform = `scale(${scale})`;
+
+      // Center the iframe inside the wrapper
+      iframe.style.left = `${(containerWidth - designWidth * scale) / 2}px`;
+      iframe.style.top = `${(containerHeight - designHeight * scale) / 2}px`;
+
+      // Send fixed design dimensions to Angular
+      iframe.contentWindow.postMessage({
+        type: 'resize',
+        width: designWidth,
+        height: designHeight
+      }, '*');
+    }
+
+    // Scale iframe on load and window resize
+    iframe.addEventListener('load', scaleIframe);
+    window.addEventListener('resize', scaleIframe);
+
+    // Send credentials securely when Angular iframe signals readiness
+    window.addEventListener('message', (event) => {
+      const trustedOrigin = 'http://localhost:4200';
+      if (event.origin !== trustedOrigin) return;
+
+      if (event.data?.type === 'studio-ready') {
+        iframe.contentWindow.postMessage({
+          type: 'auth',
+          recordId: 'recabc123',
+          apiKey: 'ap_abc123'
+        }, trustedOrigin);
+      }
+    });
+  </script>
 </body>
-
 </html>
