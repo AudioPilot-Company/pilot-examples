@@ -14,17 +14,15 @@ if not API_URL:
     raise ValueError("API_URL not set in environment variables")
 API_URL += '/studio-sessions/script/upload'
 
-# Example on how to upload a script to our platform with an API key
-def upload_script(api_key: str, file_path: str, query_params: UploadQueryParams) -> StudioSessionResponse | None:
+# Example on how to create a studio session on our platform with an API key
+def upload_studio_session(api_key: str, file_path: str, query_params: UploadQueryParams) -> StudioSessionResponse | None:
     """
-    Upload a script to the AudioPilot platform.
+    Upload a screenplay or treatment to the AudioPilot platform.
 
     Args:
         file_path (str): Path to the script PDF file.
         api_key (str): API key with upload permissions.
         query_params (UploadQueryParams): Query parameters for the upload request.
-            - externalUserId (str): Unique identifier for the user.
-            - isReviewEnabled (str): "true" or "false" to enable review mode.
 
     Returns:
         StudioSessionResponse | None: The uploaded session details if successful, otherwise None.
@@ -60,4 +58,4 @@ QUERY_PARAMS: UploadQueryParams = {
     "productType" : ProductType.AUDIO_PILOT
 }
 
-upload_script(file_path=SCRIPT_PATH, api_key=API_KEY, query_params=QUERY_PARAMS)
+upload_studio_session(file_path=SCRIPT_PATH, api_key=API_KEY, query_params=QUERY_PARAMS)

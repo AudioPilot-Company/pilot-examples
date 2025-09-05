@@ -14,10 +14,11 @@ API_URL:str = os.getenv("API_URL")
 if not API_URL:
     raise ValueError("API_URL not set in environment variables")
 API_URL += '/studio-sessions/script/upload-trial'
-# Example on how to upload a trial script to our platform with an API key
-def upload_trial_script(api_key: str, file_path: str, query_params: UploadQueryParams) -> StudioSessionResponse | None:
+
+# Example on how to create a trial studio session on our platform with an API key
+def upload_trial_studio_session(api_key: str, file_path: str, query_params: UploadQueryParams) -> StudioSessionResponse | None:
     """
-    Upload a trial script to the AudioPilot platform.
+    Upload a trial screenplay or treatment to the AudioPilot platform.
 
     Args:
         file_path (str): Path to the trial script PDF file.
@@ -58,4 +59,4 @@ QUERY_PARAMS: UploadQueryParams = {
     "productType" : ProductType.AUDIO_PILOT
 }
 
-upload_trial_script(api_key=API_KEY, file_path=SCRIPT_PATH, query_params=QUERY_PARAMS)
+upload_trial_studio_session(api_key=API_KEY, file_path=SCRIPT_PATH, query_params=QUERY_PARAMS)
