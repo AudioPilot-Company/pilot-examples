@@ -51,7 +51,7 @@ apiKey:
 </head>
 
 <body>
-  <iframe id="audiopilot-iframe" src="https://studio.myaudiopilot.com" title="AudioPilot Studio"></iframe>
+  <iframe id="audiopilot-iframe" src="https://studio.myaudiopilot.com/" title="AudioPilot Studio"></iframe>
 
   <script>
     const iframe = document.getElementById('audiopilot-iframe');
@@ -76,8 +76,8 @@ apiKey:
         // Send secure credentials via postMessage
         iframe.contentWindow.postMessage({
           type: 'auth',
-          recordId: 'reclNwgkwvYAbYKaeDAe',
-          apiKey: 'ap_cDIYDjGsdSM0SOCz9lnzwwyQ4LR8C5L2LmYIcC0bEDONsC8REQKs2WzScqImz'
+          recordId: 'recabc123',
+          apiKey: 'ap_abc123'
         }, trustedOrigin);
       }
     });
