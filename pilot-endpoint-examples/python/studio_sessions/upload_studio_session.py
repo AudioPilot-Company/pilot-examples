@@ -55,7 +55,7 @@ SCRIPT_PATH = "path-to-pdf.pdf"
 
 QUERY_PARAMS: UploadQueryParams = {
     "isReviewEnabled": "true", # Enable review mode for voices and location effects
-    "productType" : ProductType.AUDIO_PILOT
+    "productType" : ProductType.AUDIO_PILOT.value
 }
 
 upload_studio_session(file_path=SCRIPT_PATH, api_key=API_KEY, query_params=QUERY_PARAMS)

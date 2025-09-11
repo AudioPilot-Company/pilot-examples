@@ -92,7 +92,7 @@ def download_audio(record_id: str, api_key: str, file_path: str = None) -> bool:
         return False
 
 # Example usage:
-API_KEY = "ap_abc123"  # Use read API key in production
+API_KEY = "ap_abc123"  # Use download API key in production
 RECORD_ID = "recabc123"
 
 download_audio(record_id=RECORD_ID, api_key=API_KEY)

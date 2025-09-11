@@ -20,7 +20,7 @@ class StudioSessionResponse(BaseModel):
     scenesCount: Optional[int] = None
     uniqueVoicesCharacterCount: Optional[int] = None
     uniqueVoicesCount: Optional[int] = None
-    creditCost: int
+    creditCost: Optional[int] = None
     pages: int
     deleted: bool
     isReviewingEnabled: bool = False
