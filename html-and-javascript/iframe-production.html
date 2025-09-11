@@ -51,7 +51,7 @@ apiKey:
 </head>
 
 <body>
-  <iframe id="audiopilot-iframe" src="http://localhost:4200" title="AudioPilot Studio"></iframe>
+  <iframe id="audiopilot-iframe" src="https://studio.myaudiopilot.com" title="AudioPilot Studio"></iframe>
 
   <script>
     const iframe = document.getElementById('audiopilot-iframe');
@@ -69,15 +69,15 @@ apiKey:
 
     // Listen for "studio-ready" message from Angular iframe
     window.addEventListener('message', (event) => {
-      const trustedOrigin = 'http://localhost:4200';
+      const trustedOrigin = 'https://studio.myaudiopilot.com';
       if (event.origin !== trustedOrigin) return;
 
       if (event.data?.type === 'studio-ready') {
         // Send secure credentials via postMessage
         iframe.contentWindow.postMessage({
           type: 'auth',
-          recordId: 'recabc123',
-          apiKey: 'ap_abc123'
+          recordId: 'reclNwgkwvYAbYKaeDAe',
+          apiKey: 'ap_cDIYDjGsdSM0SOCz9lnzwwyQ4LR8C5L2LmYIcC0bEDONsC8REQKs2WzScqImz'
         }, trustedOrigin);
       }
     });

@@ -63,7 +63,7 @@ apiKey:
 
 <body>
   <div id="iframe-wrapper">
-    <iframe id="audiopilot-iframe" src="http://localhost:4200" title="AudioPilot Studio"></iframe>
+    <iframe id="audiopilot-iframe" src="https://studio.myaudiopilot.com/" title="AudioPilot Studio"></iframe>
   </div>
 
   <script>
@@ -103,7 +103,7 @@ apiKey:
 
     // Send credentials securely when Angular iframe signals readiness
     window.addEventListener('message', (event) => {
-      const trustedOrigin = 'http://localhost:4200';
+      const trustedOrigin = 'https://studio.myaudiopilot.com';
       if (event.origin !== trustedOrigin) return;
 
       if (event.data?.type === 'studio-ready') {
