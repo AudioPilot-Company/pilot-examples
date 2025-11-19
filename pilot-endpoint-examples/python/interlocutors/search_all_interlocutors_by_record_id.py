@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from models.interlocutor import Interlocutor
+from models.interlocutor import InterlocutorResponse
 from requests import Response
 import os, requests
 from typing import List, Optional
@@ -17,7 +17,7 @@ def search_interlocutors_by_record_id(
     api_key: str,
     record_id: str,
     search: Optional[str] = None
-) -> List[Interlocutor]:
+) -> List[InterlocutorResponse]:
     """
     Retrieve all interlocutors belonging to a specific record ID.
 
@@ -31,7 +31,7 @@ def search_interlocutors_by_record_id(
         search (str | None): Optional name prefix filter.
 
     Returns:
-        List[Interlocutor]: A list of interlocutors for the given record.
+        List[InterlocutorResponse]: A list of interlocutors for the given record.
     """
     try:
         response: Response = requests.get(
@@ -43,7 +43,7 @@ def search_interlocutors_by_record_id(
 
         data = response.json()
 
-        return [Interlocutor(**item) for item in data]
+        return [InterlocutorResponse(**item) for item in data]
 
     except Exception as error:
         print("Failed to retrieve interlocutors:", error)
@@ -54,7 +54,7 @@ def search_interlocutors_by_record_id(
 API_KEY = "ap_abc123" # Use read API key or embed API key in production
 RECORD_ID = "recabc123"
 
-interlocutors = search_interlocutors_by_record_id(
+interlocutors: List[InterlocutorResponse] = search_interlocutors_by_record_id(
     api_key=API_KEY,
     record_id=RECORD_ID
 )

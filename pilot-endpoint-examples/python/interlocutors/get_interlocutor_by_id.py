@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from models.interlocutor import Interlocutor
+from models.interlocutor import InterlocutorResponse
 from requests import Response
 import os, requests
 from typing import Optional
@@ -16,7 +16,7 @@ API_URL += "/interlocutors/{id}"
 def get_interlocutor_by_id(
     api_key: str,
     id: int
-) -> Optional[Interlocutor]:
+) -> Optional[InterlocutorResponse]:
     """
     Retrieve a single interlocutor by its unique ID.
 
@@ -35,7 +35,7 @@ def get_interlocutor_by_id(
         response.raise_for_status()
 
         data = response.json()
-        return Interlocutor(**data)
+        return InterlocutorResponse(**data)
 
     except Exception as error:
         print(f"Failed to retrieve interlocutor {id}: {error}")
@@ -46,7 +46,7 @@ def get_interlocutor_by_id(
 API_KEY = "ap_abc123" # Use read API key or embed API key in production
 INTERLOCUTOR_ID = 12345
 
-interlocutor = get_interlocutor_by_id(
+interlocutor:InterlocutorResponse = get_interlocutor_by_id(
     api_key=API_KEY,
     id=INTERLOCUTOR_ID
 )
