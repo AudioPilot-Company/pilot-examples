@@ -44,7 +44,7 @@ def update_scene(
 
 
 # Example usage:
-API_KEY = "ap_abc123"
+API_KEY = "ap_abc123"  # Use embed API key in production
 
 scene_update_request = ScenesUpdateRequest(
     id=19671,
