@@ -1,7 +1,8 @@
+from models.common import BaseEntity
 from pydantic import BaseModel
 from typing import Optional, Set
 
-class VoiceType(BaseModel):
+class VoiceTypeResponse(BaseEntity):
     id: int
     name: Optional[str]
     accent: Optional[str]

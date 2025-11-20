@@ -1,13 +1,13 @@
 from pydantic import BaseModel
 from typing import Optional, Set
 from models.common import BaseEntity
-from models.voice_type import VoiceType
+from models.voice_type import VoiceTypeResponse
 
 class InterlocutorResponse(BaseEntity):
     id: int
     name: Optional[str]
     recordId: Optional[str]
-    voiceType: Optional[VoiceType]
+    voiceType: Optional[VoiceTypeResponse]
     coverageCharacterDescription: Optional[str]
     characterTypes: Optional[Set[str]]
     deleted: Optional[bool]
