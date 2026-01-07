@@ -45,7 +45,7 @@ def get_all_voice_types(api_key: str, page: int = 0, size: int = 20) -> Page[Voi
 
 
 # Example usage:
-API_KEY = "abc_123"  # Use read API key or embed API key in production
+API_KEY = "ap_abc123"  # Use read API key or embed API key in production
 
 voice_types: Page[VoiceTypeResponse] = get_all_voice_types(api_key=API_KEY, page=0, size=20)
 for vt in voice_types.content:

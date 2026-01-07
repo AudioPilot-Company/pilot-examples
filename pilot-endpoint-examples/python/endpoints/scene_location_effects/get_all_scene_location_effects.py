@@ -46,7 +46,7 @@ def get_all_scene_location_effects(api_key: str, page: int = 0, size: int = 20) 
 
 # --- Example usage ---
 
-API_KEY = "ap_DkyrS1WSfBsZc4wJoALJJ1lMLjsRc1c9hEcoE9LUj4FAGBvKkViBRURibsFM7"  # Embed or read key
+API_KEY = "ap_abc123"  # Embed or read key
 scene_location_effects_page = get_all_scene_location_effects(api_key=API_KEY, page=0, size=10)
 
 for effect in scene_location_effects_page.content:
