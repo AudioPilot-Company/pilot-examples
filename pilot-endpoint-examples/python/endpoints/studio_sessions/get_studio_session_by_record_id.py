@@ -19,7 +19,6 @@ def get_studio_session_by_record_id(api_key: str, record_id: str) -> StudioSessi
     Args:
         record_id (str): The record ID of the studio session.
         api_key (str): API key with read permissions.
-        user_token (str): Token associated with the user for validation.
 
     Returns:
         StudioSession | None: The studio session details if found, otherwise None.
